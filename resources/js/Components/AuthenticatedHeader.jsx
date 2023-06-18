@@ -1,16 +1,17 @@
-import { useState } from 'react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
+import { Link } from '@inertiajs/react';
+import { useState } from 'react';
+import {usePage} from '@inertiajs/react';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
 
-export default function Authenticated({ user, header, children }) {
+
+export default function AuthenticatedHeader({auth}) {
+    const user = auth.user
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
-
-    return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
+    return(
+        <nav className="bg-white border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -21,7 +22,7 @@ export default function Authenticated({ user, header, children }) {
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink href={'/'}>
+                                <NavLink href='/'>
                                     Блог
                                 </NavLink>
                             </div>
@@ -55,9 +56,9 @@ export default function Authenticated({ user, header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                        <Dropdown.Link href={route('logout')} method="post" as="button">
-                                            Log Out
+                                        <Dropdown.Link href='/profile'>Настройки</Dropdown.Link>
+                                        <Dropdown.Link href="/logout" method="post" as="button">
+                                            Выйти
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
@@ -112,14 +113,5 @@ export default function Authenticated({ user, header, children }) {
                     </div>
                 </div>
             </nav>
-
-            {header && (
-                <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
-                </header>
-            )}
-
-            <main>{children}</main>
-        </div>
     );
-}
+}  
